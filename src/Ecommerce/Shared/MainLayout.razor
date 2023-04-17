@@ -1,0 +1,42 @@
+﻿@inherits LayoutComponentBase
+@inject IDialogService _dialogService
+
+<PageTitle>RepairEquipment</PageTitle>
+
+<MudThemeProvider/>
+<MudDialogProvider DisableBackdropClick="true"/>
+<MudSnackbarProvider/>
+
+<MudLayout>
+     <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudButton Color="Color.Inherit" OnClick="Instruction">Instruction</MudButton>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="clipMode" Elevation="1" Variant="@DrawerVariant.Mini">
+        <MudDrawerHeader>
+            <MudImage resource="../wwwroot/img/dayton_logo.png"/>
+            <MudText Typo="Typo.h6">DAYTON</MudText>
+        </MudDrawerHeader>
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+    DrawerClipMode clipMode = DrawerClipMode.Docked;
+    
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    void Instruction()
+    {
+        _dialogService.Show<Instruction>("Instruction");
+    }
+}
