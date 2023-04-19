@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentMigrator;
 
 namespace Ecommerce.Migrations.Interfaces
 {
-    internal class ISubMigration
+    public interface ISubMigration
     {
+        void Up(Migration migration);
+        void Down(Migration migration);
     }
 }

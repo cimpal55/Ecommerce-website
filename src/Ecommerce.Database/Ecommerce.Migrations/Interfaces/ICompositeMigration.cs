@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ecommerce.Migrations.Interfaces
+﻿ namespace Ecommerce.Migrations.Interfaces
 {
-    internal class ICompositeMigration
+    public interface ICompositeMigration
     {
+        ISubMigration[] GetMigrations();
     }
 }
