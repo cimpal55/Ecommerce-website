@@ -5,7 +5,8 @@ using static Ecommerce.Data.Columns;
 
 namespace Ecommerce.Shared.Models.Data
 {
-    public class ProductVariantsRecord
+    [Table(Tables.ProductVariants)]
+    public sealed record ProductVariantsRecord
     {
         [JsonIgnore]
         public int Id { get; set; }
@@ -26,6 +27,8 @@ namespace Ecommerce.Shared.Models.Data
 
         [Column(ProductVariants.Visible)]
         public bool Visible { get; set; } = true;
+
+        public bool Deleted { get; set; } = false;
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public bool Editing { get; set; } = false;

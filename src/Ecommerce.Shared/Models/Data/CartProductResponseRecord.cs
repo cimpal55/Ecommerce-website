@@ -1,6 +1,6 @@
 ﻿namespace Ecommerce.Shared.Models.Data
 {
-    public class CartProductResponseRecord
+    public sealed record CartProductResponseRecord
     {
         public int ProductId { get; set; }
         public string Title { get; set; } = string.Empty;

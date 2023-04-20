@@ -1,8 +1,9 @@
-﻿using Ecommerce.Shared.Models.Data;
+﻿using Ecommerce.Client.Services.UsersService;
+using Ecommerce.Shared.Models.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using RepairEquipment.Client.DbAccess;
+using Ecommerce.Client.DbAccess;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -12,27 +13,29 @@ namespace Ecommerce.Client.Services.AuthService
     public class AuthService : IAuthService
     {
         private readonly SqlDataAccess _context;
+        private readonly IUsersService _user;
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AuthService(SqlDataAccess context,
+            IUsersService user,
             IConfiguration configuration,
             IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _user = user;
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValu(ClaimTypes.NameIdentifier));
+        public int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         public string GetUserEmail() => _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
         public async Task<ServiceResponseRecord<string>> Login(string email, string password)
         {
             var response = new ServiceResponseRecord<string>();
-            var user = await _context.Users.
-                .FirstOrDefaultAsync(x => x.Email.ToLower().Equals(email.ToLower()));
+            var user = await _user.GetUserByEmailAsync(email);
             if (user == null)
             {
                 response.Success = false;
@@ -67,20 +70,17 @@ namespace Ecommerce.Client.Services.AuthService
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            await _user.InsertUserAsync(user);
 
             return new ServiceResponseRecord<int> { Data = user.Id, Message = "Registration successful!" };
         }
 
         public async Task<bool> UserExists(string email)
         {
-            if (await _context.Users.AnyAsync(user => user.Email.ToLower()
-                 .Equals(email.ToLower())))
-            {
+            if (await _user.GetUserByEmailAsync(email) == null)
+                return false;
+            else
                 return true;
-            }
-            return false;
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -129,7 +129,7 @@ namespace Ecommerce.Client.Services.AuthService
 
         public async Task<ServiceResponseRecord<bool>> ChangePassword(int userId, string newPassword)
         {
-            var user = await _context.Users.FindAsync(userId);
+            var user = await _user.GetUserByIdAsync(userId);
             if (user == null)
             {
                 return new ServiceResponseRecord<bool>
@@ -144,14 +144,9 @@ namespace Ecommerce.Client.Services.AuthService
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            await _context.SaveChangesAsync();
+            await _user.UpdateUserAsync(user);
 
             return new ServiceResponseRecord<bool> { Data = true, Message = "Password has been changed." };
-        }
-
-        public async Task<UsersRecord> GetUserByEmail(string email)
-        {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
         }
     }
 }

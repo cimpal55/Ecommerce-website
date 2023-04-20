@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Shared.Models.Data
 {
-    public class UserRegisterRecord
+    public sealed record UserRegisterRecord
     {
         [Required, EmailAddress]
         public string Email { get; set; } = string.Empty;

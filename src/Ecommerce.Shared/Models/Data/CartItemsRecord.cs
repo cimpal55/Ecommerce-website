@@ -5,7 +5,7 @@ using static Ecommerce.Data.Columns;
 namespace Ecommerce.Shared.Models.Data
 {
     [Table(Tables.CartItems)]
-    public class CartItemsRecord
+    public sealed record CartItemsRecord
     {
         [Column(CartItems.Id)]
         public int Id { get; set; }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ecommerce.Shared.Models.Data;
 
 namespace Ecommerce.Client.Services.UsersService
 {
     public interface IUsersService
     {
-        string GetUserByEmail(string? email);
+        Task InsertUserAsync(UsersRecord user);
+        Task DeleteUserAsync(UsersRecord user);
+        Task UpdateUserAsync(UsersRecord user);
+        Task<UsersRecord> GetUserByEmailAsync(string? email);
+        Task<UsersRecord> GetUserByIdAsync(int? id);
     }
 }

@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Ecommerce.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ecommerce.Shared.Models.Data
 {
-    public class OrderItemsRecord
+    [Table(Tables.OrderItems)]
+    public sealed record OrderItemsRecord
     {
         public OrdersRecord Order { get; set; } = new();
         public int OrderId { get; set; }

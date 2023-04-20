@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Shared.Models.Data
 {
-    public class UserLoginRecord
+    public sealed record UserLoginRecord
     {
         [Required]
         public string Email { get; set; } = string.Empty;

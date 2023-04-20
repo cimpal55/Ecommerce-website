@@ -4,30 +4,31 @@ using static Ecommerce.Data.Columns;
 
 namespace Ecommerce.Shared.Models.Data
 {
-    public class UsersRecord
+    [Table(Tables.Users)]
+    public sealed record UsersRecord
     {
-        [Column(Users.Id)]
+        [Column(Users.Id, IsPrimaryKey =true)]
         public int Id { get; set; }
 
-        [Column(Users.Email)]
+        [Column(Users.Email, CanBeNull = false)]
         public string Email { get; set; } = string.Empty;
 
-        [Column(Users.PasswordHash)]
+        [Column(Users.PasswordHash, CanBeNull = false)]
         public byte[] PasswordHash { get; set; }
         
-        [Column(Users.PasswordSalt)]
+        [Column(Users.PasswordSalt, CanBeNull = false)]
         public byte[] PasswordSalt { get; set; }
 
-        [Column(Users.Created)]
+        [Column(Users.Created, CanBeNull = false)]
         public DateTime Created { get; set; } = DateTime.Now;
 
-        [Column(Users.PhoneNumber)]
+        [Column(Users.PhoneNumber, CanBeNull = false)]
         public string PhoneNumber { get; set; } = string.Empty;
 
-        [Column(Users.Address)]
+        [Column(Users.Address, CanBeNull = false)]
         public UserAddressesRecord Address { get; set; } = new();
 
-        [Column(Users.Role)]
+        [Column(Users.Role, CanBeNull = false)]
         public string Role { get; set; } = "Customer";
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]

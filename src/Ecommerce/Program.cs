@@ -1,10 +1,10 @@
-using LinqToDB.AspNet;
-using LinqToDB.AspNet.Logging;
-using LinqToDB.Configuration;
 using MudBlazor.Services;
-using RepairEquipment.Client.DbAccess;
-using RepairEquipment.Utils.ServiceRegistration;
+using Ecommerce.Utils.ServiceRegistration;
 using System.Data.SqlClient;
+using LinqToDB.AspNet;
+using Ecommerce.Client.DbAccess;
+using LinqToDB;
+using LinqToDB.AspNet.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +26,7 @@ builder.Services.AddLinqToDBContext<SqlDataAccess>((provider, options) =>
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
+builder.Services.AddEcommerceServices();
 
 var app = builder.Build();
 

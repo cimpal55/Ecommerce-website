@@ -4,7 +4,8 @@ using static Ecommerce.Data.Columns;
 
 namespace Ecommerce.Shared.Models.Data
 {
-    public class ProductsRecord
+    [Table(Tables.Products)]
+    public sealed record ProductsRecord
     {
         [Column(Products.Id)]
         public int Id { get; set; }
@@ -27,6 +28,8 @@ namespace Ecommerce.Shared.Models.Data
         public bool Featured { get; set; } = false;
         public List<ProductVariantsRecord> Variants { get; set; } = new();
         public bool Visible { get; set; } = true;
+
+        public bool Deleted { get; set; } = false;
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public bool Editing { get; set; } = false;

@@ -4,7 +4,8 @@ using static Ecommerce.Data.Columns;
 
 namespace Ecommerce.Shared.Models.Data
 {
-    public class ImagesRecord
+    [Table(Tables.Images)]
+    public sealed record ImagesRecord
     {
         [Column(Images.Id)]
         public int Id { get; set; }

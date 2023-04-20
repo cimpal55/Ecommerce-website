@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Shared.Models.Data
 {
-    public class ProductSearchRecord
+    public sealed record ProductSearchRecord
     {
         public List<ProductsRecord> Products { get; set; } = new();
         public int Pages { get; set; }

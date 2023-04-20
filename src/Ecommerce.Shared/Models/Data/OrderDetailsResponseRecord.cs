@@ -1,6 +1,6 @@
 ﻿namespace Ecommerce.Shared.Models.Data
 {
-    public class OrderDetailsResponseRecord
+    public sealed record OrderDetailsResponseRecord
     {
         public DateTime OrderDate { get; set; }
         public decimal TotalPrice { get; set; }

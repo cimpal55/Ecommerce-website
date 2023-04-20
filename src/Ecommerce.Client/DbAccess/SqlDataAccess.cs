@@ -1,9 +1,8 @@
-﻿using LinqToDB;
-using LinqToDB.Configuration;
+﻿using Ecommerce.Shared.Models.Data;
+using LinqToDB;
 using LinqToDB.Data;
-using Ecommerce.Shared.Models.Data;
 
-namespace RepairEquipment.Client.DbAccess
+namespace Ecommerce.Client.DbAccess
 {
     public class SqlDataAccess : DataConnection
     {
@@ -12,6 +11,7 @@ namespace RepairEquipment.Client.DbAccess
         {
         }
         public ITable<UsersRecord> Users => this.GetTable<UsersRecord>();
+        public ITable<UserAddressesRecord> UserAddresses => this.GetTable<UserAddressesRecord>();
         public ITable<UserRegisterRecord> UserRegister => this.GetTable<UserRegisterRecord>();
         public ITable<UserLoginRecord> UserLogin => this.GetTable<UserLoginRecord>();
         public ITable<UserChangePasswordRecord> UserChangePassword => this.GetTable<UserChangePasswordRecord>();

@@ -1,6 +1,6 @@
 ﻿namespace Ecommerce.Shared.Models.Data
 {
-    public class OrderOverviewResponseRecord
+    public sealed record OrderOverviewResponseRecord
     {
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }

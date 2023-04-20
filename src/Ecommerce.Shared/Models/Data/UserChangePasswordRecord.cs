@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Shared.Models.Data
 {
-    public class UserChangePasswordRecord
+    public sealed record UserChangePasswordRecord
     {
         [Required, StringLength(100, MinimumLength = 6)]
         public string Password { get; set; } = string.Empty;
