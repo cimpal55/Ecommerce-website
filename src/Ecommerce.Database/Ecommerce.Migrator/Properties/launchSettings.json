@@ -2,7 +2,7 @@
   "profiles": {
     "Migrator": {
       "commandName": "Project",
-      "commandLineArgs": "\"Data Source=.\\SQLEXPRESS;Initial Catalog=BlazorEcommerce;Integrated Security=True;\""
+      "commandLineArgs": "\"Data Source=.\\SQLEXPRESS;Initial Catalog=Ecommerce;Integrated Security=True;\""
     }
   }
 }

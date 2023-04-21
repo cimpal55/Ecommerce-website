@@ -1,4 +1,4 @@
-﻿using Ecommerce.Client.Services.AddressService;
+﻿using Ecommerce.Server.Services.AddressService;
 using Ecommerce.Shared.Models.Data;
 using Microsoft.AspNetCore.Mvc;
 

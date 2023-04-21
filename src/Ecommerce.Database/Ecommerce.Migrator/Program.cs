@@ -24,7 +24,7 @@ static bool CheckDatabaseExists(string connectionString)
 {
     using (var connection = new SqlConnection(connectionString))
     {
-        using (var command = new SqlCommand($"SELECT db_id('BlazorEcommerce')", connection))
+        using (var command = new SqlCommand($"SELECT db_id('Ecommerce')", connection))
         {
             connection.Open();
             return (command.ExecuteScalar() != DBNull.Value);
@@ -39,7 +39,7 @@ static void CreateDb()
     
     if (CheckDatabaseExists(cs) == false)
     {
-        var cmd = new SqlCommand("CREATE DATABASE BlazorEcommerce", con);
+        var cmd = new SqlCommand("CREATE DATABASE Ecommerce", con);
         con.Open();
         cmd.ExecuteNonQuery();
         con.Close();

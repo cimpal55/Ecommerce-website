@@ -1,4 +1,4 @@
-﻿using Ecommerce.Client.Services.AuthService;
+﻿using Ecommerce.Server.Services.AuthService;
 using Ecommerce.Shared.Models.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

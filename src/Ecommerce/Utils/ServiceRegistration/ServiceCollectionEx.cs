@@ -1,13 +1,12 @@
-﻿using Ecommerce.Client.Services.AddressService;
+﻿using Ecommerce.Client;
+using Ecommerce.Client.Services.AddressService;
 using Ecommerce.Client.Services.AuthService;
 using Ecommerce.Client.Services.CartService;
-using Ecommerce.Client.Services.CategoriesService;
-using Ecommerce.Client.Services.OrdersService;
-using Ecommerce.Client.Services.ProductsService;
-using Ecommerce.Client.Services.ProductTypesService;
-using Ecommerce.Client.Services.UsersService;
-using Ecommerce.Client.Services.UtilsService;
-using Microsoft.Extensions.DependencyInjection;
+using Ecommerce.Client.Services.CategoryService;
+using Ecommerce.Client.Services.OrderService;
+using Ecommerce.Client.Services.ProductService;
+using Ecommerce.Client.Services.ProductTypeService;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Ecommerce.Utils.ServiceRegistration
 {
@@ -20,13 +19,11 @@ namespace Ecommerce.Utils.ServiceRegistration
             @this
                 .AddScoped<IAddressService, AddressService>()
                 .AddScoped<IAuthService, AuthService>()
-                .AddScoped<IUsersService, UsersService>()
                 .AddScoped<ICartService, CartService>()
-                .AddScoped<ICategoriesService, CategoriesService>()
-                .AddScoped<IOrdersService, OrdersService>()
-                .AddScoped<IProductTypesService, ProductTypesService>()
-                .AddScoped<IProductsService, ProductsService>()
-                .AddScoped<IUtilsService, UtilsService>()
-                .AddScoped<ICartService, CartService>();
+                .AddScoped<ICategoryService, CategoryService>()
+                .AddScoped<IOrderService, OrderService>()
+                .AddScoped<IProductTypeService, ProductTypeService>()
+                .AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>()
+                .AddScoped<IProductService, ProductService>();
     }
 }
