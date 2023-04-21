@@ -10,7 +10,7 @@
 <MudLayout>
      <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudButton Color="Color.Inherit" OnClick="Instruction">Instruction</MudButton>
+        <MudButton Color="Color.Inherit"  >Instruction</MudButton>
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen" ClipMode="clipMode" Elevation="1" Variant="@DrawerVariant.Mini">
         <MudDrawerHeader>
@@ -34,9 +34,5 @@
     {
         _drawerOpen = !_drawerOpen;
     }
-
-    void Instruction()
-    {
-        _dialogService.Show<Instruction>("Instruction");
-    }
+     
 }

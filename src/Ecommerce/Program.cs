@@ -1,28 +1,19 @@
-using MudBlazor.Services;
-using Ecommerce.Utils.ServiceRegistration;
-using System.Data.SqlClient;
-using LinqToDB.AspNet;
 using Ecommerce.Client.DbAccess;
+using Ecommerce.Utils.ServiceRegistration;
 using LinqToDB;
+using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;
+using LinqToDB.Common;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddLinqToDBContext<SqlDataAccess>((provider, options) =>
-{
-    var connectionString = provider.GetRequiredService<IConfiguration>()
-        .GetConnectionString("Default");
+builder.Services.AddLinqToDBContext<SqlDataAccess>((provider, options)
+            => options
+                .UseSqlServer(provider.GetRequiredService<IConfiguration>().GetConnectionString("Default"))
+                .UseDefaultLogging(provider));
 
-    connectionString = new SqlConnectionStringBuilder(connectionString)
-    {
-        TrustServerCertificate = true
-    }.ConnectionString;
-
-    options
-        .UseSqlServer(connectionString)
-        .UseDefaultLogging(provider);
-});
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();

@@ -2,7 +2,6 @@
 using Ecommerce.Shared.Models.Data;
 using LinqToDB;
 using Ecommerce.Client.DbAccess;
-using System.Data.Entity;
 
 namespace Ecommerce.Client.Services.CartService
 {
@@ -49,7 +48,7 @@ namespace Ecommerce.Client.Services.CartService
                 var productVariant = await _conn.ProductVariants
                     .Where(v => v.ProductId == item.ProductId
                         && v.ProductTypeId == item.ProductTypeId)
-                    .Include(v => v.ProductType)
+                    .LoadWith(v => v.ProductType)
                     .FirstOrDefaultAsync();
 
                 if (productVariant == null)

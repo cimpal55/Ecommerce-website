@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Shared.Models.Data;
 using LinqToDB;
+using LinqToDB.Configuration;
 using LinqToDB.Data;
 
 namespace Ecommerce.Client.DbAccess

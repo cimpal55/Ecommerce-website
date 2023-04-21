@@ -3,7 +3,6 @@ using Ecommerce.Client.Services.CartService;
 using Ecommerce.Shared.Models.Data;
 using LinqToDB;
 using Ecommerce.Client.DbAccess;
-using System.Data.Entity;
 
 namespace Ecommerce.Client.Services.OrdersService
 {
@@ -38,8 +37,10 @@ namespace Ecommerce.Client.Services.OrdersService
         {
             var response = new ServiceResponseRecord<OrderDetailsResponseRecord>();
             var order = await _conn.Orders
-                .Include(o => o.OrderItems)
-                .Include(o => o.OrderItems)
+                .LoadWith(o => o.OrderItems)
+                .ThenLoad(oi => oi.Product)
+                .LoadWith(o => o.OrderItems)
+                .ThenLoad(oi => oi.ProductType)
                 .Where(o => o.UserId == _authService.GetUserId() && o.Id == orderId)
                 .OrderByDescending(o => o.OrderDate)
                 .FirstOrDefaultAsync();        
@@ -77,7 +78,8 @@ namespace Ecommerce.Client.Services.OrdersService
  
             var response = new ServiceResponseRecord<List<OrderOverviewResponseRecord>>();
             var orders = await _conn.Orders
-                .Include(o => o.OrderItems)
+                .LoadWith(o => o.OrderItems)
+                .ThenLoad(oi => oi.Product)
                 .Where(o => o.UserId == _authService.GetUserId())
                 .OrderByDescending(o => o.OrderDate)
                 .ToListAsync();

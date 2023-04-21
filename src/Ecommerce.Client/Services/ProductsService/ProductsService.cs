@@ -3,7 +3,6 @@ using Ecommerce.Shared.Models.Data;
 using LinqToDB;
 using Microsoft.AspNetCore.Http;
 using Ecommerce.Client.DbAccess;
-using System.Data.Entity;
 
 namespace Ecommerce.Client.Services.ProductsService
 {
@@ -68,10 +67,12 @@ namespace Ecommerce.Client.Services.ProductsService
         {
             var response = new ServiceResponseRecord<List<ProductsRecord>>
             {          
-                Data = await LinqToDB.AsyncExtensions.ToListAsync(_conn.Products
+                Data = await _conn.Products
                     .Where(p => !p.Deleted)
-                    .Include(p => p.Variants.Where(v => !v.Deleted))
-                    .Include(p => p.Images))
+                    .LoadWith(p => p.Variants.Where(v => !v.Deleted))
+                    .ThenLoad(v => v.ProductType)
+                    .LoadWith(p => p.Images)
+                    .ToListAsync()
         };
 
             return response;
@@ -83,8 +84,8 @@ namespace Ecommerce.Client.Services.ProductsService
             {
                 Data = await _conn.Products
                     .Where(p => p.Featured && p.Visible && !p.Deleted)
-                    .Include(p => p.Variants.Where(v => v.Visible && !v.Deleted))
-                    .Include(p => p.Images)
+                    .LoadWith(p => p.Variants.Where(v => v.Visible && !v.Deleted))
+                    .LoadWith(p => p.Images)
                     .ToListAsync()
             };
 
@@ -99,15 +100,17 @@ namespace Ecommerce.Client.Services.ProductsService
             if (_httpContextAccessor.HttpContext.User.IsInRole("Admin"))
             {
                 product = await _conn.Products
-                    .Include(p => p.Variants.Where(v => !v.Deleted))
-                    .Include(p => p.Images)
+                    .LoadWith(p => p.Variants.Where(v => !v.Deleted))
+                    .ThenLoad(v => v.ProductType)
+                    .LoadWith(p => p.Images)
                     .FirstOrDefaultAsync(p => p.Id == productId && !p.Deleted);
             }
             else
             {
                 product = await _conn.Products
-                    .Include(p => p.Variants.Where(v => v.Visible && !v.Deleted))
-                    .Include(p => p.Images)
+                    .LoadWith(p => p.Variants.Where(v => v.Visible && !v.Deleted))
+                    .ThenLoad(v => v.ProductType)
+                    .LoadWith(p => p.Images)
                     .FirstOrDefaultAsync(p => p.Id == productId && !p.Deleted && p.Visible);
             }
 
@@ -130,8 +133,8 @@ namespace Ecommerce.Client.Services.ProductsService
             {
                 Data = await _conn.Products
                     .Where(p => p.Visible && !p.Deleted)
-                    .Include(p => p.Variants.Where(v => v.Visible && !v.Deleted))
-                    .Include(p => p.Images)
+                    .LoadWith(p => p.Variants.Where(v => v.Visible && !v.Deleted))
+                    .LoadWith(p => p.Images)
                     .ToListAsync()
             };
 
@@ -145,8 +148,8 @@ namespace Ecommerce.Client.Services.ProductsService
                  Data = await _conn.Products
                     .Where(p => p.Category.Url.ToLower().Equals(categoryUrl.ToLower()) &&
                         p.Visible && !p.Deleted)
-                    .Include(p => p.Variants.Where(v => v.Visible && !v.Deleted))
-                    .Include(p => p.Images)
+                    .LoadWith(p => p.Variants.Where(v => v.Visible && !v.Deleted))
+                    .LoadWith(p => p.Images)
                     .ToListAsync()
             };
 
@@ -195,8 +198,8 @@ namespace Ecommerce.Client.Services.ProductsService
                                 .Where(p => p.Title.ToLower().Contains(searchText.ToLower()) ||
                                     p.Description.ToLower().Contains(searchText.ToLower()) &&
                                     p.Visible && !p.Deleted)
-                                .Include(p => p.Variants)
-                                .Include(p => p.Images)
+                                .LoadWith(p => p.Variants)
+                                .LoadWith(p => p.Images)
                                 .Skip((page - 1) * (int)pageResults)
                                 .Take((int)pageResults)
                                 .ToListAsync();
@@ -217,7 +220,7 @@ namespace Ecommerce.Client.Services.ProductsService
         public async Task<ServiceResponseRecord<ProductsRecord>> UpdateProduct(ProductsRecord product)
         {
             var dbProduct = await _conn.Products
-                .Include(p => p.Images)
+                .LoadWith(p => p.Images)
                 .FirstOrDefaultAsync(p => p.Id == product.Id);
 
             if (dbProduct == null)
@@ -273,7 +276,7 @@ namespace Ecommerce.Client.Services.ProductsService
                                 .Where(p => p.Title.ToLower().Contains(searchText.ToLower()) ||
                                     p.Description.ToLower().Contains(searchText.ToLower()) &&
                                     p.Visible && !p.Deleted)
-                                .Include(p => p.Variants)
+                                .LoadWith(p => p.Variants)
                                 .ToListAsync();
         }
     }
