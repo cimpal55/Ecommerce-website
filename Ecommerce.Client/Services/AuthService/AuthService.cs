@@ -1,12 +1,10 @@
 ﻿using Ecommerce.Shared.Models.Data;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using Ecommerce.Client.DbAccess;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using Ecommerce.Server.Services.UsersService;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Ecommerce.Server.Services.AuthService
 {

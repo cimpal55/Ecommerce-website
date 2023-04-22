@@ -17,11 +17,13 @@
     <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
     <PackageReference Include="Dayton.MudBlazor" Version="1.0.12" />
     <PackageReference Include="linq2db.AspNet" Version="4.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.JSInterop.WebAssembly" Version="6.0.16" />
     <PackageReference Include="MudBlazor" Version="6.2.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +33,22 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Shared\AddressForm.razor" />
+    <None Include="Shared\AdminMenu.razor" />
+    <None Include="Shared\CartCounter.razor" />
+    <None Include="Shared\FeaturedProducts.razor" />
+    <None Include="Shared\HomeButton.razor" />
+    <None Include="Shared\MainLayout.razor" />
+    <None Include="Shared\NavMenu.razor" />
+    <None Include="Shared\ProductList.razor" />
+    <None Include="Shared\Search.razor" />
+    <None Include="Shared\ShopLayout.razor" />
+    <None Include="Shared\ShopNavMenu.razor" />
+    <None Include="Shared\SurveyPrompt.razor" />
+    <None Include="Shared\UserButton.razor" />
   </ItemGroup>
 
 </Project>

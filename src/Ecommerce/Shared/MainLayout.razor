@@ -1,38 +1,17 @@
 ﻿@inherits LayoutComponentBase
-@inject IDialogService _dialogService
 
-<PageTitle>RepairEquipment</PageTitle>
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
 
-<MudThemeProvider/>
-<MudDialogProvider DisableBackdropClick="true"/>
-<MudSnackbarProvider/>
+    <main>
+        <div class="top-row px-4">
+            <Search />
+        </div>
 
-<MudLayout>
-     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudButton Color="Color.Inherit"  >Instruction</MudButton>
-    </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="clipMode" Elevation="1" Variant="@DrawerVariant.Mini">
-        <MudDrawerHeader>
-            <MudImage resource="../wwwroot/img/dayton_logo.png"/>
-            <MudText Typo="Typo.h6">DAYTON</MudText>
-        </MudDrawerHeader>
-        <NavMenu/>
-    </MudDrawer>
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.ExtraLarge">
+        <article class="content px-4">
             @Body
-        </MudContainer>
-    </MudMainContent>
-</MudLayout>
-
-@code {
-    bool _drawerOpen = true;
-    DrawerClipMode clipMode = DrawerClipMode.Docked;
-    
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
-     
-}
+        </article>
+    </main>
+</div>

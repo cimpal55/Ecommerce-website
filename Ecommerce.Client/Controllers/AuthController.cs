@@ -1,10 +1,11 @@
 ﻿using Ecommerce.Server.Services.AuthService;
 using Ecommerce.Shared.Models.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace Ecommerce.Controllers
+namespace BlazorEcommerce.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
