@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Ecommerce.Client\Ecommerce.Server.csproj" />
+    <ProjectReference Include="..\Ecommerce.Server\Ecommerce.Server.csproj" />
     <ProjectReference Include="..\Ecommerce.Shared\Ecommerce.Shared.csproj" />
   </ItemGroup>
 
